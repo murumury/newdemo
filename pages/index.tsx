@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import CursorChat from '@yomo/cursor-chat-react';
 import { useEffect, useState } from 'react';
@@ -11,7 +9,6 @@ import { createPresence } from '@yomo/presence';
 import GroupHug from '@yomo/group-hug-react';
 import { faker } from '@faker-js/faker';
 import '@yomo/group-hug-react/dist/style.css';
-
 
 export default function Home() {
   const [presenceClient, setPresenceClient] =
@@ -28,6 +25,23 @@ export default function Home() {
     };
     
   }, []);
+  useEffect(() => {
+    const handleUnload = () => {
+      presenceClient?.then(presence => {
+        presence?.leaveChannel(id);
+      });
+    };
+  
+    window.addEventListener('beforeunload', handleUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+      presenceClient?.then(presence => {
+        presence?.leaveChannel(id);
+      });
+    };
+  }, [id, presenceClient]);
+
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
