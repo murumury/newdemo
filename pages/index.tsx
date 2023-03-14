@@ -89,7 +89,7 @@ borderRadius:'20px'}}>
         </div>
       </div>      </div>
       <div style={{display:'grid',alignItems:'center',justifyItems:'center',color:'#252525',marginTop:'280px',fontSize:'30px',fontWeight:'300'}}>
-      Press &quot/&quot to send message to other users.
+      Press &quot;/&quot; to send message to other users.
       
 
       </div>
