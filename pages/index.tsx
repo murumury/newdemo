@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.css';
 import CursorChat from '@yomo/cursor-chat-react';
 import { useEffect, useState } from 'react';
 import { connect } from '@/utils/presence';
-import { IPresence } from '@yomo/presence';
+import { IPresence,IChannel } from '@yomo/presence';
 import "@yomo/cursor-chat-react/dist/style.css"
 import { createPresence } from '@yomo/presence';
 import GroupHug from '@yomo/group-hug-react';
@@ -11,7 +11,8 @@ import { faker } from '@faker-js/faker';
 import '@yomo/group-hug-react/dist/style.css';
 
 export default function Home() {
-  
+  const [channel, setChannel] = useState<IChannel>();
+
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -26,23 +27,10 @@ export default function Home() {
     };
     
   }, []);
-  useEffect(() => {
-    const handleUnload = () => {
-      presenceClient?.then(presence => {
-        presence?.leaveChannel(id);
-      });
-    };
-  
-    window.addEventListener('beforeunload', handleUnload);
-  
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-      presenceClient?.then(presence => {
-        presence?.leaveChannel(id);
-      });
-    };
-  }, [id, presenceClient]);
+  const [onLineState, setOnLineState] = useState<string>('online');
+console.log(presenceClient)
 
+console.log(channel)
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
@@ -62,7 +50,6 @@ export default function Home() {
   }  
   const color =getRandomColor() ;
   
-  const [onLineState, setOnLineState] = useState<string>('online');
   useEffect(() => {
     const presence = createPresence({
       url: 'https://prscd2.allegro.earth/v1',
@@ -71,7 +58,20 @@ export default function Home() {
       appId: 'demogrouphug',
     });
     setPresence(presence);
+    setChannel(channel);
   }, [id]);
+  useEffect(() => {
+    const handleUnload = () => {
+      channel?.leave();
+    };
+    
+    window.addEventListener('beforeunload', handleUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+      channel?.leave();
+    };
+  }, [channel]);
   return (
     <>
       <Head>
@@ -107,10 +107,10 @@ export default function Home() {
       position: 'fixed',
   bottom:'24px',
   right:'87px',
-  color:'#252525',
+  color:'#25252500',
   display: 'inline-block',
 fontSize: '14px',
-backgroundColor:'#272727',
+backgroundColor:'#ffffff00',
 borderRadius:'20px'}}>
     <div style={{marginRight:'10px',marginLeft:'10px'}}>
         <div>
@@ -122,7 +122,7 @@ borderRadius:'20px'}}>
 
         </div>
       </div>      </div>
-      <div style={{position:"absolute",top:"250px",display:'grid',alignItems:'center',justifyItems:'center',color:'#252525',marginTop:'0px',fontSize:'30px',fontWeight:'300'}}>
+      <div style={{position:"absolute",top:"250px",display:'grid',alignItems:'center',justifyItems:'center',color:'#c4c4c4',marginTop:'0px',fontSize:'30px',fontWeight:'300'}}>
       Press &quot;/&quot; to send message to other users.
       
 
