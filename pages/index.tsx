@@ -11,6 +11,7 @@ import { faker } from '@faker-js/faker';
 import '@yomo/group-hug-react/dist/style.css';
 
 export default function Home() {
+  
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -45,12 +46,29 @@ export default function Home() {
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
+  const colors = [
+    '#FF38D1',
+    '#8263FF',
+    '#0095FF',
+    '#00B874',
+    '#FF3168',
+    '#FFAB03',
+  ];
+  
+  function getRandomColor() {
+    const idx = Math.floor(Math.random() * colors.length);
+    const color = colors[idx];
+    return color;
+  }  
+  const color =getRandomColor() ;
+  
+  const [onLineState, setOnLineState] = useState<string>('online');
   useEffect(() => {
     const presence = createPresence({
       url: 'https://prscd2.allegro.earth/v1',
-      publicKey: 'GIctGofSPwjGEYuPztgvvuBfKZsnPcad2te1mjdum',
+      publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
       id,
-      appId: 'lzq',
+      appId: 'demogrouphug',
     });
     setPresence(presence);
   }, [id]);
@@ -69,6 +87,7 @@ export default function Home() {
             id={id}
             avatar={avatar}
             name={randomName}
+            color={color}
           />
         )}
         {presence ? (<div style={{
@@ -80,6 +99,7 @@ export default function Home() {
           id={id}
           avatar={avatar}
           name={randomName}
+          avatarBorderColor={color}
         /></div>
       ) : null}
       <div 
