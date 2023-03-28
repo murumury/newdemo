@@ -15,7 +15,7 @@
     "@types/react-dom": "18.0.11",
     "@yomo/cursor-chat-react": "^1.0.0",
     "@yomo/group-hug-react": "^1.0.0",
-    "@yomo/presence": "^2.0.2",
+    "@yomo/presence": "^2.1.1",
     "@yomo/webtransport-polyfill": "^1.0.4-alpha2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
