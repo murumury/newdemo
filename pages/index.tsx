@@ -27,7 +27,6 @@ export default function Home() {
   }, []);
 console.log(presenceClient)
 
-  const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
   const colors = [
@@ -46,15 +45,13 @@ console.log(presenceClient)
   }  
   const color =getRandomColor() ;
   
-  useEffect(() => {
     const presence = createPresence({
       url: 'https://prscd2.allegro.earth/v1',
       publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
       id,
       appId: 'demogrouphug',
     });
-    setPresence(presence);
-  }, [id]);
+
 
   return (
     <>
