@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.css';
 import CursorChat from '@yomo/cursor-chat-react';
 import { useEffect, useState } from 'react';
 import { connect } from '@/utils/presence';
-import { IPresence,IChannel } from '@yomo/presence';
+import { IPresence } from '@yomo/presence';
 import "@yomo/cursor-chat-react/dist/style.css"
 import { createPresence } from '@yomo/presence';
 import GroupHug from '@yomo/group-hug-react';
@@ -11,7 +11,6 @@ import { faker } from '@faker-js/faker';
 import '@yomo/group-hug-react/dist/style.css';
 
 export default function Home() {
-  const [channel, setChannel] = useState<IChannel>();
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -26,10 +25,8 @@ export default function Home() {
     };
 
   }, []);
-  const [onLineState, setOnLineState] = useState<string>('online');
 console.log(presenceClient)
 
-console.log(channel)
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
@@ -57,20 +54,8 @@ console.log(channel)
       appId: 'demogrouphug',
     });
     setPresence(presence);
-    setChannel(channel);
   }, [id]);
-  useEffect(() => {
-    const handleUnload = () => {
-      channel?.leave();
-    };
-    
-    window.addEventListener('beforeunload', handleUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-      channel?.leave();
-    };
-  }, [channel]);
+
   return (
     <>
       <Head>
