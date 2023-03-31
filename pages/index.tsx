@@ -12,7 +12,6 @@ import '@yomo/group-hug-react/dist/style.css';
 
 export default function Home() {
   const [channel, setChannel] = useState<IChannel>();
-
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -25,9 +24,12 @@ export default function Home() {
     return () => {
       setPresenceClient(null);
     };
-    
-  }, []);
 
+  }, []);
+  const [onLineState, setOnLineState] = useState<string>('online');
+console.log(presenceClient)
+
+console.log(channel)
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
   const randomName = faker.name.fullName();
