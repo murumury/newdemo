@@ -9,10 +9,14 @@ import { createPresence } from '@yomo/presence';
 import GroupHug from '@yomo/group-hug-react';
 import { faker } from '@faker-js/faker';
 import '@yomo/group-hug-react/dist/style.css';
+import Dialog from './components/Dialog';
+import ChatBox from './components/ChatBox';
 
 export default function Home() {
   const [channel, setChannel] = useState<IChannel>();
+  const [isDialogOpen, setDialogOpen] = useState(true);
 
+  const closeDialog = () => setDialogOpen(false);
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -78,6 +82,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} style={{background: `url('./bg.svg')`}}>
+    
+      
+      {/* <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
+      </Dialog> */}
+      <div className='text-black'>
+      { <ChatBox channel={channel} userId={randomName} />}
+</div>
+
         {presence && (
           <CursorChat
             presence={presence}
@@ -158,7 +170,9 @@ borderRadius:'20px'}}>
 
 
       </div>
+
       </main>
     </>
   );
 }
+
