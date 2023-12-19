@@ -1,22 +1,20 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-import CursorChat from '@yomo/cursor-chat-react';
+// import CursorChat from '@yomo/cursor-chat-react';
 import { useEffect, useState } from 'react';
 import { connect } from '@/utils/presence';
 import { IPresence,IChannel } from '@yomo/presence';
-import "@yomo/cursor-chat-react/dist/style.css"
+// import "@yomo/cursor-chat-react/dist/style.css"
 import { createPresence } from '@yomo/presence';
-import GroupHug from '@yomo/group-hug-react';
+// import GroupHug from '@yomo/group-hug-react';
 import { faker } from '@faker-js/faker';
-import '@yomo/group-hug-react/dist/style.css';
-import Dialog from './components/Dialog';
-import ChatBox from './components/ChatBox';
+// import '@yomo/group-hug-react/dist/style.css';
+
+import Link from 'next/link';
 
 export default function Home() {
   const [channel, setChannel] = useState<IChannel>();
-  const [isDialogOpen, setDialogOpen] = useState(true);
 
-  const closeDialog = () => setDialogOpen(false);
   const [presenceClient, setPresenceClient] =
     useState<Promise<IPresence> | null>(null);
   const [id, setId] = useState<string>('');
@@ -29,8 +27,9 @@ export default function Home() {
     return () => {
       setPresenceClient(null);
     };
-    
+
   }, []);
+ 
 
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
@@ -52,11 +51,10 @@ export default function Home() {
   const color =getRandomColor() ;
   
   useEffect(() => {
-    const presence = createPresence({
-      url: 'https://prscd2.allegro.earth/v1',
+    const presence = createPresence('https://prscd2.allegro.earth/v1',{
       publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
       id,
-      appId: 'demogrouphug',
+      appId: 'mydemo',
     });
     setPresence(presence);
     setChannel(channel);
@@ -82,15 +80,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} style={{background: `url('./bg.svg')`}}>
-    
+    <Link href={"./Chat"}>chat</Link>
       
       {/* <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
       </Dialog> */}
       <div className='text-black'>
-      { <ChatBox channel={channel} userId={randomName} />}
 </div>
 
-        {presence && (
+        {/* {presence && (
           <CursorChat
             presence={presence}
             id={id}
@@ -110,7 +107,7 @@ export default function Home() {
           name={randomName}
           avatarBorderColor={color}
         /></div>
-      ) : null}
+      ) : null} */}
       <div 
     style={{
       position: 'fixed',
