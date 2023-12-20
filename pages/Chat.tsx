@@ -69,10 +69,15 @@ newChannel.subscribe('message', (data: JsonSerializable) => {
     // 组件卸载时的清理函数
     return () => {
       isSubscribed = false;
-      if (channel) {
-        // 退出频道的方法
-        channel.leave().catch(console.error);
-      }
+if (channel) {
+  try {
+    // 尝试退出频道
+    channel.leave();
+  } catch (error) {
+    // 如果有任何错误，记录它
+    console.error(error);
+  }
+}
     };
   }, []);
   
