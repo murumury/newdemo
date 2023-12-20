@@ -11,7 +11,7 @@ export default  function Chat ( ){
    
 
 
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [connected, setConnected] = useState(false);
    // const [channel, setChannel] = useState<IChannel>();
