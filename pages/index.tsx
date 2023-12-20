@@ -54,7 +54,7 @@ export default function Home() {
     const presence = createPresence('https://prscd2.allegro.earth/v1',{
       publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
       id,
-      appId: 'mydemo',
+     
     });
     setPresence(presence);
     setChannel(channel);

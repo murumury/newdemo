@@ -30,7 +30,7 @@ useEffect(() => {
       publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
       id: 'user-client-id',
       debug: true,
-      appId: 'mydemo',
+      
     }).then(async (presence) => {
       console.log('Presence: ', presence);
       setConnected(true);
