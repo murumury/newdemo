@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IPresence,IChannel, createPresence } from '@yomo/presence';
+import { IPresence,IChannel, createPresence, JsonSerializable } from '@yomo/presence';
 import Head from 'next/head';
 import styles from '@/styles/Chat.module.css';
 
@@ -11,8 +11,12 @@ export default  function Chat ( ){
    
 
 
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [newMessage, setNewMessage] = useState('');
+    const [messages, setMessages] = useState<Array<{
+        id: string,
+        message: string,
+        peerId?: string,
+        peerMessage?: string
+      }>>([]);    const [newMessage, setNewMessage] = useState('');
     const [connected, setConnected] = useState(false);
    // const [channel, setChannel] = useState<IChannel>();
     const [presence, setPresence] = useState<any>();
@@ -40,9 +44,20 @@ useEffect(() => {
           setChannel(newChannel);
   
           // 订阅消息
-          newChannel.subscribe('message', (payload, peerState) => {
-            setMessages(prevMsgs => [...prevMsgs, { ...payload, peer: peerState }]);
-          });
+          // 假设这是您订阅消息的方法
+newChannel.subscribe('message', (data: JsonSerializable) => {
+    // 首先检查 data 是否为 Message 类型的对象
+    if (typeof data === 'object' && data !== null && 'id' in data && 'message' in data) {
+      const payload = data as Message;
+      // 假设 peerState 也是 Message 类型，并且您已经有了 peerState 的值
+      const peerState: Message = { id: 'some-id', message: 'some-message' }; // 这应该是您从其他地方获得的实际值
+  
+      setMessages(prevMsgs => [...prevMsgs, { ...payload, peerId: peerState.id }]);
+    } else {
+      // 如果 data 不是 Message 类型，您可以决定如何处理这种情况
+      console.error('Data received is not a valid Message object:', data);
+    }
+  });
         }
       } catch (error) {
         console.error('Failed to join channel:', error);
