@@ -8,7 +8,9 @@ interface Message {
     message: string;
   }
 export default  function Chat ( ){
-   
+    function isMessage(data: any): data is Message {
+        return typeof data === 'object' && data !== null && 'id' in data && 'message' in data;
+      }
 
 
     const [messages, setMessages] = useState<Array<{
@@ -46,9 +48,9 @@ useEffect(() => {
           // 订阅消息
           // 假设这是您订阅消息的方法
 newChannel.subscribe('message', (data: JsonSerializable) => {
-    // 首先检查 data 是否为 Message 类型的对象
-    if (typeof data === 'object' && data !== null && 'id' in data && 'message' in data) {
-      const payload = data as Message;
+    // 使用类型守卫来检查 data 是否为 Message 类型
+    if (isMessage(data)) {
+        const payload: Message = data; // 这里不再需要断言
       // 假设 peerState 也是 Message 类型，并且您已经有了 peerState 的值
       const peerState: Message = { id: 'some-id', message: 'some-message' }; // 这应该是您从其他地方获得的实际值
   
