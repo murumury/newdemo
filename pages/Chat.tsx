@@ -89,8 +89,8 @@ const sendMessage = () => {
       };
       
       if (channel) {
-        channel.broadcast('message', messageToSend);
-// 更新自己的页面
+        channel.broadcast('message', messageToSend as unknown as JsonSerializable);
+        // 更新自己的页面
 setMessages(prevMsgs => [...prevMsgs, messageToSend]);
 setNewMessage('');      }
     }
