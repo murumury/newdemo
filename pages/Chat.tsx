@@ -125,10 +125,11 @@ return(
     <main className="flex justify-center items-center min-h-screen bg-gray-100 p-4" style={{ backgroundImage: `url('./bg.svg')` }}>
  
       {/* Displaying User's Name */}
-      <span className="absolute top-4 left-5 text-gray-700">Your name: <strong>{myName}</strong></span>
-      
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 mt-24 px-6 py-2 bg-white border border-white rounded-full shadow-md">
+    <span className="text-gray-700">Your name: <strong>{myName}</strong></span>
+  </div>     
       {/* Chat Container */}
-      <div className="bg-white rounded-xl shadow-lg p-4 m-4 w-full max-w-lg"> {/* Adjusted max width here */}
+      <div className="bg-white rounded-xl shadow-lg p-4 m-4 w-2/3 md:max-w-2xl">{/* Adjusted max width here */}
         <div className="overflow-hidden rounded-lg">
           <div className="overflow-y-auto h-80 bg-gray-200 p-2">
             {messages.map((msg, index) => (
@@ -151,8 +152,13 @@ return(
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Please enter a message..."
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            required
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault(); // 阻止在文本框中插入换行符
+                  sendMessage(); 
+                }
+              }}           
+               required
           />
           <button 
             className="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
