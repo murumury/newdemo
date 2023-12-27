@@ -140,7 +140,7 @@ return(
                 {msg.userName !== myName && (
                   <span className="text-xs text-gray-600">{msg.userName}</span>
                 )}
-                <div className={`rounded-lg px-4 py-2 my-1 ${msg.userName === myName ? 'bg-green-500 text-white' : 'bg-white shadow'}`}>
+                <div className={`rounded-lg px-4 py-2 my-1 ${msg.userName === myName ? 'bg-green-500 text-white' : 'bg-white text-black dark:text-black shadow'}`}>
                   {msg.message}
                 </div>
               </div>
@@ -163,7 +163,7 @@ return(
         {/* Message Input and Send Button */}
         <div className="mt-4 flex items-center">
           <textarea
-            className="flex-1 p-2 resize-none border rounded focus:outline-none focus:ring focus:ring-green-400"
+            className="flex-1 p-2 resize-none border rounded focus:outline-none focus:ring focus:ring-green-400 bg-white dark:bg-#ffffff-800"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Please enter a message..."
