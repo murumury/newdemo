@@ -1,16 +1,15 @@
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css';
-// import CursorChat from '@yomo/cursor-chat-react';
+//import CursorChat from '@yomo/cursor-chat-react';
 import { useEffect, useState } from 'react';
 import { connect } from '@/utils/presence';
 import { IPresence,IChannel } from '@yomo/presence';
-// import "@yomo/cursor-chat-react/dist/style.css"
+//import "@yomo/cursor-chat-react/dist/style.css"
 import { createPresence } from '@yomo/presence';
-// import GroupHug from '@yomo/group-hug-react';
+//import GroupHug from '@yomo/group-hug-react';
 import { faker } from '@faker-js/faker';
-// import '@yomo/group-hug-react/dist/style.css';
-
 import Link from 'next/link';
+//import '@yomo/group-hug-react/dist/style.css';
 
 export default function Home() {
   const [channel, setChannel] = useState<IChannel>();
@@ -27,9 +26,8 @@ export default function Home() {
     return () => {
       setPresenceClient(null);
     };
-
+    
   }, []);
- 
 
   const [presence, setPresence] = useState<any>();
   const avatar = `https://robohash.org/${id}`;
@@ -52,9 +50,8 @@ export default function Home() {
   
   useEffect(() => {
     const presence = createPresence('https://prscd2.allegro.earth/v1',{
-      publicKey: 'EIHHOvhgKGPWPJfFpjKQMmKcshZtSpa6ezwp2dp',
+            publicKey: 'sPLZdRQCydxHWfmBmMMhtdroKZCyMox3djw93x7',
       id,
-     
     });
     setPresence(presence);
     setChannel(channel);
@@ -80,23 +77,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main} style={{background: `url('./bg.svg')`}}>
-    <Link href={"./Chat"}>chat</Link>
-      
-      {/* <Dialog isOpen={isDialogOpen} onClose={closeDialog}>
-      </Dialog> */}
-      <div className='text-black'>
-</div>
-
+        <Link href={'./Chat'} className='text-black' >click here to open chat</Link>
         {/* {presence && (
-          <CursorChat
-            presence={presence}
-            id={id}
-            avatar={avatar}
-            name={randomName}
-            color={color}
-          />
-        )}
-        {presence ? (<div style={{
+          // <CursorChat
+          //   presence={presence}
+          //   id={id}
+          //   avatar={avatar}
+          //   name={randomName}
+          //   color={color}
+          // />
+        )} */}
+        {/* {presence ? (<div style={{
     position:'absolute',
     top:'40px',
     right:'40px'}}>
@@ -106,7 +97,8 @@ export default function Home() {
           avatar={avatar}
           name={randomName}
           avatarBorderColor={color}
-        /></div>
+        />
+        </div>
       ) : null} */}
       <div 
     style={{
@@ -167,9 +159,7 @@ borderRadius:'20px'}}>
 
 
       </div>
-
       </main>
     </>
   );
 }
-
