@@ -151,14 +151,16 @@ return(
         </div>
       
         <div > 
-  <GroupHug
-    presence={p}
-    channel="chat-channel"
-    id={id.current}
-    name={initialUserName}
-    avatar={userAvatar}
-    overlapping={true}
-  />
+        {p && (
+    <GroupHug
+        presence={p}
+        channel="chat-channel"
+        id={id.current}
+        name={initialUserName}
+        avatar={userAvatar}
+        overlapping={true}
+    />
+)}
 </div>
         {/* Message Input and Send Button */}
         <div className="mt-4 flex items-center">
