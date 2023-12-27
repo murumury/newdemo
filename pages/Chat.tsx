@@ -42,10 +42,9 @@ const [messages, setMessages] = useState<Array<{
     peerMessage?: string
   }>>([]);    
 const [newMessage, setNewMessage] = useState('');
-const [connected, setConnected] = useState(false);
 const [channel, setChannel] = useState<IChannel | null>(null);
 const id = useRef<string>((new Date).valueOf().toString());
-const [p, setP] = useState<IPresence | null>(null);
+const [p, setP] = useState<Promise<IPresence> | null>(null);
  
 useEffect(() => {
 let isSubscribed = true; // 用于跟踪组件挂载状态
@@ -59,8 +58,7 @@ createPresence('https://prscd2.allegro.earth/v1', {
   
 }).then(async (presence) => {
   console.log('Presence: ', presence);
-  setConnected(true);
-  setP(presence);
+  setP(Promise.resolve(presence));
   try {
     const newChannel = await presence.joinChannel('chat-channel', { id: 'user-client-id' });
     if (isSubscribed) {
